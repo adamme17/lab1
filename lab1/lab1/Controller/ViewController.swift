@@ -101,11 +101,12 @@ extension ViewController: UITableViewDelegate {
         }
     }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let event = self.someList[indexPath.row]
-//        let eventDetailVC = DetailViewController()
-//
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let event = self.someList[indexPath.row]
+        let eventDetailVC = DetailViewController()
+        eventDetailVC.event = event
+        self.present(eventDetailVC, animated: true)
+    }
 }
 
 
