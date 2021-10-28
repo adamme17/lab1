@@ -8,12 +8,14 @@
 import UIKit
 
 class DetailViewController: UIViewController {
+    
     var event: Events?
+    var detailView: DetailView?
     
     var safeArea: UILayoutGuide!
-    let imageIV = CustomImageView()
-    let nameLabel = UILabel()
-    let repoLabel = UILabel()
+//    let imageIV = CustomImageView()
+//    let nameLabel = UILabel()
+//    let repoLabel = UILabel()
 //    let dismissButton = UIButton()
     
     override func viewDidLoad() {
@@ -21,61 +23,41 @@ class DetailViewController: UIViewController {
         
         view.backgroundColor = .white
         safeArea = view.layoutMarginsGuide
-        
-        setupImage()
-        setupData()
-        setupName()
-        setupRepo()
+        //showError()
+        if let event = event {
+            detailView = DetailView(event: event)
+            setupUI()
+        }
 //        setupDismissButton()
     }
     
-    func setupImage() {
-        view.addSubview(imageIV)
-        
-        imageIV.translatesAutoresizingMaskIntoConstraints = false
-        imageIV.contentMode = .scaleAspectFit
-        imageIV.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        imageIV.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 50).isActive = true
-        imageIV.widthAnchor.constraint(equalTo: safeArea.widthAnchor, constant: 0.5).isActive = true
-        imageIV.heightAnchor.constraint(equalTo: imageIV.widthAnchor).isActive = true
+    func setupUI() {
+        guard let detailView = detailView else { return }
+        view.addSubview(detailView)
+        detailView.translatesAutoresizingMaskIntoConstraints = false
+        //detailView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+       // detailView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+//        detailView.topAnchor.constraint(equalTo: safeArea.topAnchor).isActive = true
+//        detailView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor).isActive = true
+//        detailView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor).isActive = true
+//        detailView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor).isActive = true
+        detailView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        detailView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
     }
     
-    func setupName() {
-        view.addSubview(nameLabel)
+    func showError() {
         
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.topAnchor.constraint(equalTo: imageIV.bottomAnchor, constant: 10).isActive = true
-        nameLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor).isActive = true
-        nameLabel.textColor = .black
-    }
-    
-    func setupRepo() {
-        view.addSubview(repoLabel)
-        
-        repoLabel.translatesAutoresizingMaskIntoConstraints = false
-        repoLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10).isActive = true
-        repoLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor).isActive = true
-        repoLabel.textColor = .black
-    }
-    
-//    func setupDismissButton() {
-//        view.addSubview(dismissButton)
+//        let alert = UIAlertController(title: "Error", message: "Missing event struct", preferredStyle: UIAlertController.Style.alert)
 //
-//        dismissButton.translatesAutoresizingMaskIntoConstraints = false
-//        dismissButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -50).isActive = true
-//        dismissButton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor).isActive = true
+//        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { _ in
+//            self.dismiss(animated: true, completion: nil)
+//                }))
+//        self.view.addSubview(alert.view)
+//        alert.view.translatesAutoresizingMaskIntoConstraints = false
+//        alert.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        alert.view.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+//        self.present(alert, animated: true, completion: nil)
 //
-//        dismissButton.setTitle("Dismiss", for: .normal)
-//        self.dismiss(animated: true, completion: nil)
-//    }
-    
-    func setupData() {
-        if let event = event,
-           let url = URL(string: event.actor.avatar_url)
-        {
-            imageIV.loadImage(from: url)
-            nameLabel.text = "Author: " + event.actor.login
-            repoLabel.text = "Repository: " + event.repo.name
-        }
     }
+    
 }

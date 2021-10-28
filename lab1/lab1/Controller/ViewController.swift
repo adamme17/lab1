@@ -21,6 +21,12 @@ class ViewController: UIViewController {
         eventsManager.getEvents(pageId: pageId) { result in
             switch result {
             case .success(let events):
+                self.pageId += 1
+//                let events = events.filter { $0.repo.name.count > 40 }
+                let events = events
+                if events.isEmpty {
+                    self.loadEventsPage(pageId: pageId+1)
+                }
                 for event in events {
                     self.someList.append(event)
                     //self.someList.append(event.actor.login)
@@ -86,7 +92,7 @@ extension ViewController: UITableViewDataSource {
         
         customCell.nameLabel.text = name.actor.login
         customCell.typeLabel.text = name.type
-        customCell.dateLabel.text = name.created_at
+        customCell.dateLabel.text = customCell.formatDate(date: name.created_at)
         if let url = URL(string: name.actor.avatar_url) {
             customCell.imageIV.loadImage(from: url)
         }
@@ -102,10 +108,15 @@ extension ViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let event = self.someList[indexPath.row]
         let eventDetailVC = DetailViewController()
         eventDetailVC.event = event
         self.present(eventDetailVC, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        80.0
     }
 }
 

@@ -39,6 +39,8 @@ extension EventsManager: EventsManagerProtocol {
                         }
                         
                     default:
+                        print(response.description)
+                        print(response.statusCode)
                         completion(.failure(NetworkResponse.failed))
                 }
             }
