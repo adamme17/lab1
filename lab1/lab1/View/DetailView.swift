@@ -27,7 +27,6 @@ final class DetailView: UIView {
     func setupUI() {
         
         setupImage()
-//        setupData()
         setupName()
         setupRepo()
     }
@@ -66,17 +65,6 @@ final class DetailView: UIView {
         repoLabel.heightAnchor.constraint(equalToConstant: 50.0).isActive = true
         repoLabel.textColor = .black
     }
-    
-//    func setupDismissButton() {
-//        view.addSubview(dismissButton)
-//
-//        dismissButton.translatesAutoresizingMaskIntoConstraints = false
-//        dismissButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -50).isActive = true
-//        dismissButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-//
-//        dismissButton.setTitle("Dismiss", for: .normal)
-//        self.dismiss(animated: true, completion: nil)
-//    }
     
     func setupData(event: Events) {
         if let url = URL(string: event.actor.avatar_url) {

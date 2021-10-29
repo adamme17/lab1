@@ -22,7 +22,6 @@ class ViewController: UIViewController {
             switch result {
             case .success(let events):
                 self.pageId += 1
-//                let events = events.filter { $0.repo.name.count > 40 }
                 let events = events
                 if events.isEmpty {
                     self.loadEventsPage(pageId: pageId+1)
@@ -45,20 +44,15 @@ class ViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        //super.viewDidLoad()
         view.backgroundColor = .white
         safeArea = view.layoutMarginsGuide
         tableView.dataSource = self
         tableView.delegate = self
         
-        //NetworkManager.shared.
-        
         tableView.register(CustomCell.self, forCellReuseIdentifier: "cellId")
         
         setupView()
     }
-
-//    let anonymousFunction = {}
     
     // MARK: - Setup View
     

@@ -13,12 +13,7 @@ class CustomCell: UITableViewCell {
     let nameLabel = UILabel()
     let typeLabel = UILabel()
     let dateLabel = UILabel()
-//    let dateFormatter: DateFormatter = {
-//       let dateforamtter = DateFormatter()
-//        dateforamtter.dateFormat = "MM/dd/yyyy"
-//        return dateforamtter
-//    }()
-//
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
