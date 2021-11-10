@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     var someList = [Events]()
     
     let eventsManager = EventsManager()
+    let storageManager = CoreDataManager.shared()
     
     var pageId = 1
     
@@ -26,6 +27,9 @@ class ViewController: UIViewController {
                 if events.isEmpty {
                     self.loadEventsPage(pageId: pageId+1)
                 }
+                
+                self.storageManager.prepare(dataForSaving: events)
+                
                 for event in events {
                     self.someList.append(event)
                     //self.someList.append(event.actor.login)
@@ -40,6 +44,7 @@ class ViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+       someList.append(contentsOf: storageManager.fetchAllData())
        loadEventsPage(pageId: pageId)
     }
     

@@ -12,6 +12,13 @@ struct Events: Codable {
     let actor: Actor
     let repo: Repo
     let created_at: String
+    
+    init(type: String, login: String, avatar: String, name: String, createdAt: String) {
+        self.type = type
+        self.actor = Actor(login: login, avatar_url: avatar)
+        self.repo = Repo(name: name)
+        self.created_at = createdAt
+    }
 }
 
 struct Actor: Codable {
